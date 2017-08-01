@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * Copyright © 2017 Ihor Vansach (ihor@magefan.com). All rights reserved.
+ * See LICENSE.txt for license details (http://opensource.org/licenses/osl-3.0.php).
+ *
+ * Glory to Ukraine! Glory to the heroes!
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="magefan" sortOrder="110" translate="label">
+            <label>Magefan Extensions</label>
+        </tab>
+        <section id="mfrocketjavascript" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
+            <label>Rocket JavasSript</label>
+            <tab>magefan</tab>
+            <resource>Magefan_RocketJavaScript::config_magefan_rocketjavascript</resource>
+            <group id="general" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
+                <label>General</label>
+                <attribute type="expanded">1</attribute>
+                <field id="version" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <frontend_model>Magefan\RocketJavaScript\Block\Adminhtml\System\Config\Form\Info</frontend_model>
+                </field>
+                <field id="enabled" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="20" translate="label" type="select">
+                    <label>Enabled</label>
+                    <comment>If enabled all JavaScript on storefront will be moved to the end of the page.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>
