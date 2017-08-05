@@ -17,18 +17,18 @@ class ResultPlugin
 {
     const EXCLUDE_FLAG_PATTERN = 'data-rocketjavascript="false"';
 
+	/**
+     * Request
+     * @var \Magento\Framework\App\RequestInterface
+     */
+    protected $request;
+
     /**
      * Core store config
      *
      * @var \Magento\Framework\App\Config\ScopeConfigInterface
      */
     protected $scopeConfig;
-
-    /**
-     * Request
-     * @var \Magento\Framework\App\RequestInterface
-     */
-    protected $request;
 
     /**
      * @param \Magento\Framework\App\RequestInterface            $request
@@ -98,9 +98,30 @@ class ResultPlugin
 
     private function isEnabled()
     {
-        return $this->scopeConfig->getValue(
+        $enabled = $this->scopeConfig->getValue(
             'mfrocketjavascript/general/enabled',
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE
         );
+
+        /* check if Plumrocket AMP enabled */
+        if ($enabled) {
+        	$isAmpRequest = $this->scopeConfig->getValue(
+	            'pramp/general/enabled',
+	            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+	        );
+
+	        if ($isAmpRequest) {
+	        	/* We know that using objectManager is not a not a good practice,
+	        	but if Plumrocket_AMP is not installed on your magento instance
+	        	you'll get error during di:compile */
+	        	$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+	        	$isAmpRequest = $objectManager->get('\Plumrocket\Amp\Helper\Data')
+	        		->isAmpRequest();
+	        }
+
+	        $enabled = !$isAmpRequest;
+        }
+
+        return $enabled;
     }
 }
