@@ -56,7 +56,7 @@ class ResultPlugin
     ) {
         $result = $proceed($response);
 
-        if ($this->request->isXmlHttpRequest() || !$this->isEnabled()) {
+        if (PHP_SAPI === 'cli' || $this->request->isXmlHttpRequest() || !$this->isEnabled()) {
             return $result;
         }
 
