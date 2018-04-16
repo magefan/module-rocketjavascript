@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © 2017 Ihor Vansach (ihor@magefan.com). All rights reserved.
+ * Copyright © Magefan (support@magefan.com). All rights reserved.
  * See LICENSE.txt for license details (http://opensource.org/licenses/osl-3.0.php).
  *
  * Glory to Ukraine! Glory to the heroes!
@@ -11,42 +11,25 @@ namespace Magefan\RocketJavaScript\Block\Adminhtml\System\Config\Form;
 use Magento\Store\Model\ScopeInterface;
 
 /**
- * Admin blog configurations information block
+ * Admin configurations information block
  */
-class Info extends \Magento\Config\Block\System\Config\Form\Field
+class Info extends \Magefan\Community\Block\Adminhtml\System\Config\Form\Info
 {
     /**
-     * @var \Magento\Framework\Module\ModuleListInterface
-     */
-    protected $moduleList;
-
-    /**
-     * @param \Magento\Framework\Module\ModuleListInterface $moduleList
-     * @param \Magento\Backend\Block\Template\Context $context
-     * @param array $data
-     */
-    public function __construct(
-        \Magento\Framework\Module\ModuleListInterface $moduleList,
-        \Magento\Backend\Block\Template\Context $context,
-        array $data = []
-    ) {
-        parent::__construct($context, $data);
-        $this->moduleList       = $moduleList;
-    }
-
-    /**
-     * Return info block html
-     * @param  \Magento\Framework\Data\Form\Element\AbstractElement $element
+     * Return extension url
      * @return string
      */
-    public function render(\Magento\Framework\Data\Form\Element\AbstractElement $element)
+    protected function getModuleUrl()
     {
-        $m = $this->moduleList->getOne($this->getModuleName());
-        $html = '<div style="padding:10px;background-color:#f8f8f8;border:1px solid #ddd;margin-bottom:7px;">
-            Rocket JavaScript Extension v' . $m['setup_version'] . ' was developed by <a href="http://magefan.com/" target="_blank">Magefan</a>.
-        </div>';
-
-        return $html;
+        return 'https://magefan.com/rocket-javascript-deferred-javascript?utm_source=m2admin_rocket_javascript_config&utm_medium=link&utm_campaign=regular';
     }
 
+    /**
+     * Return extension title
+     * @return string
+     */
+    protected function getModuleTitle()
+    {
+        return 'Rocket JavaScript Extension';
+    }
 }

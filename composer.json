@@ -1,8 +1,12 @@
 {
     "name": "magefan/module-rocketjavascript",
     "description": "Move all javascripts to the footer on Magento 2 store.",
+    "require": {
+        "php": "~5.6.5 || >=7.0",
+        "magefan/module-community" : ">=2.0.1"
+    },
     "type": "magento2-module",
-    "version": "2.0.0",
+    "version": "2.1.0",
     "license": "OSL-3.0",
     "authors": [
         {

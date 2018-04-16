@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © 2017 Ihor Vansach (ihor@magefan.com). All rights reserved.
+ * Copyright © Magefan (support@magefan.com). All rights reserved.
  * See LICENSE.txt for license details (http://opensource.org/licenses/osl-3.0.php).
  *
  * Glory to Ukraine! Glory to the heroes!
@@ -17,7 +17,7 @@ class ResultPlugin
 {
     const EXCLUDE_FLAG_PATTERN = 'data-rocketjavascript="false"';
 
-	/**
+    /**
      * Request
      * @var \Magento\Framework\App\RequestInterface
      */
@@ -69,7 +69,7 @@ class ResultPlugin
         $jsHtml = [];
 
         foreach ($patterns as $pattern) {
-            $matches = array();
+            $matches = [];
             $success = preg_match_all($pattern, $html, $matches);
             if ($success) {
                 foreach ($matches[0] as $i => $js) {
@@ -105,21 +105,21 @@ class ResultPlugin
 
         /* check if Plumrocket AMP enabled */
         if ($enabled) {
-        	$isAmpRequest = $this->scopeConfig->getValue(
-	            'pramp/general/enabled',
-	            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
-	        );
+            $isAmpRequest = $this->scopeConfig->getValue(
+                'pramp/general/enabled',
+                \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+            );
 
-	        if ($isAmpRequest) {
-	        	/* We know that using objectManager is not a not a good practice,
+            if ($isAmpRequest) {
+                /* We know that using objectManager is not a not a good practice,
 	        	but if Plumrocket_AMP is not installed on your magento instance
 	        	you'll get error during di:compile */
-	        	$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-	        	$isAmpRequest = $objectManager->get('\Plumrocket\Amp\Helper\Data')
-	        		->isAmpRequest();
-	        }
+                $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+                $isAmpRequest = $objectManager->get('\Plumrocket\Amp\Helper\Data')
+                    ->isAmpRequest();
+            }
 
-	        $enabled = !$isAmpRequest;
+            $enabled = !$isAmpRequest;
         }
 
         return $enabled;

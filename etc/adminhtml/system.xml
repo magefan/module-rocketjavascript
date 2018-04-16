@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <!--
 /**
- * Copyright © 2017 Ihor Vansach (ihor@magefan.com). All rights reserved.
+ * Copyright © Magefan (support@magefan.com). All rights reserved.
  * See LICENSE.txt for license details (http://opensource.org/licenses/osl-3.0.php).
  *
  * Glory to Ukraine! Glory to the heroes!
@@ -9,9 +9,6 @@
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
     <system>
-        <tab id="magefan" sortOrder="110" translate="label">
-            <label>Magefan Extensions</label>
-        </tab>
         <section id="mfrocketjavascript" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
             <label>Rocket JavasSript</label>
             <tab>magefan</tab>
@@ -27,15 +24,17 @@
                     <comment>If enabled all JavaScript on storefront will be moved to the end of the page.</comment>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
-                <field id="enable_javaScript_bundling_optimization" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="30" translate="label" type="select">
+                <field id="enable_js_bundling_optimization" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="30" translate="label" type="select">
                     <label>Enable JavaScript Bundling Optimization</label>
+                    <comment>Please note that this option only works with enabled JavaScript Bundling (Configuration > Advanced > Developer > JavaScript Settings > Enable JavaScript Bundling).</comment>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
                 <field id="included_in_bundling" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="40" translate="label" type="textarea">
                     <label>Included In Bundling</label>
                     <depends>
-                        <field id="enable_javaScript_bundling_optimization">1</field>
+                        <field id="enable_js_bundling_optimization">1</field>
                     </depends>
+                    <comment>List of files that included in JS bundle.</comment>
                 </field>
             </group>
         </section>
