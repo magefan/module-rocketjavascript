@@ -35,6 +35,18 @@ php bin/magento setup:di:compile
 php bin/magento setup:static-content:deploy
 ```
 
+## GET LIST OF USED JS
+```
+/* Use in browser console */
+globalSrc = [];
+jQuery('script').each(function(){
+if (!jQuery(this).attr('src')) return;
+var src = (jQuery(this).attr('src').replace('PATH_TO_JS', ''));
+globalSrc.push(src)
+})
+console.log(JSON.stringify(globalSrc));
+```
+
 ## Support
 If you have any issues, please [contact us](mailto:support@magefan.com)
 then if you still need help, open a bug report in GitHub's
