@@ -35,7 +35,7 @@ php bin/magento setup:di:compile
 php bin/magento setup:static-content:deploy
 ```
 
-## GET LIST OF USED JS
+## Get List Of Used JS
 ```
 /* Use in browser console */
 globalSrc = [];
