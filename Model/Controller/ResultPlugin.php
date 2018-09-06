@@ -55,40 +55,38 @@ class ResultPlugin
         ResponseHttp $response
     ) {
         $result = $proceed($response);
-
         if (PHP_SAPI === 'cli' || $this->request->isXmlHttpRequest() || !$this->isEnabled()) {
             return $result;
         }
 
         $html = $response->getBody();
+        $scripts = [];
 
-        $patterns = [
-            'js' => '#(\s*<!--(\[if[^\n]*>)?\s*(<script.*</script>)+\s*(<!\[endif\])?-->)|(\s*<script.*</script>)#isU',
-        ];
+        $startTag = '<script';
+        $endTag = '</script>';
 
-        $jsHtml = [];
-
-        foreach ($patterns as $pattern) {
-            $matches = [];
-            $success = preg_match_all($pattern, $html, $matches);
-            if ($success) {
-                foreach ($matches[0] as $i => $js) {
-                    if (strpos($js, self::EXCLUDE_FLAG_PATTERN) !== false) {
-                        unset($matches[0][$i]);
-                    } else {
-                        $jsHtml[] = $matches[0][$i];
-                    }
-                }
-
-                $html = str_replace($matches[0], '', $html);
+        while (false !== ($start = mb_stripos($html, $startTag))) {
+            $end = mb_stripos($html, $endTag, $start);
+            if (false === $end) {
+                break;
             }
+
+            $len = $end + mb_strlen($endTag) - $start;
+            $script = mb_substr($html, $start, $len);
+
+            if (false !== mb_stripos($script, self::EXCLUDE_FLAG_PATTERN)) {
+                continue;
+            }
+
+            $html = str_replace($script, '', $html);
+            $scripts[] = $script;
         }
 
-        $jsHtml = implode($jsHtml);
-        if ($end = strrpos($html, '</body>')) {
-            $html = substr($html, 0, $end) . $jsHtml . substr($html, $end);
+        $scripts = implode(PHP_EOL, $scripts);
+        if ($end = mb_stripos($html, '</body>')) {
+            $html = mb_substr($html, 0, $end) . $scripts . substr($html, $end);
         } else {
-            $html .= $jsHtml;
+            $html .= $scripts;
         }
 
         $response->setBody($html);
@@ -112,8 +110,8 @@ class ResultPlugin
 
             if ($isAmpRequest) {
                 /* We know that using objectManager is not a not a good practice,
-	        	but if Plumrocket_AMP is not installed on your magento instance
-	        	you'll get error during di:compile */
+                but if Plumrocket_AMP is not installed on your magento instance
+                you'll get error during di:compile */
                 $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
                 $isAmpRequest = $objectManager->get('\Plumrocket\Amp\Helper\Data')
                     ->isAmpRequest();
