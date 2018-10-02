@@ -65,16 +65,16 @@ class ResultPlugin
         $startTag = '<script';
         $endTag = '</script>';
 
-        while (false !== ($start = mb_stripos($html, $startTag))) {
-            $end = mb_stripos($html, $endTag, $start);
+        while (false !== ($start = stripos($html, $startTag))) {
+            $end = stripos($html, $endTag, $start);
             if (false === $end) {
                 break;
             }
 
-            $len = $end + mb_strlen($endTag) - $start;
-            $script = mb_substr($html, $start, $len);
+            $len = $end + strlen($endTag) - $start;
+            $script = substr($html, $start, $len);
 
-            if (false !== mb_stripos($script, self::EXCLUDE_FLAG_PATTERN)) {
+            if (false !== stripos($script, self::EXCLUDE_FLAG_PATTERN)) {
                 continue;
             }
 
@@ -83,8 +83,8 @@ class ResultPlugin
         }
 
         $scripts = implode(PHP_EOL, $scripts);
-        if ($end = mb_stripos($html, '</body>')) {
-            $html = mb_substr($html, 0, $end) . $scripts . substr($html, $end);
+        if ($end = stripos($html, '</body>')) {
+            $html = substr($html, 0, $end) . $scripts . substr($html, $end);
         } else {
             $html .= $scripts;
         }
