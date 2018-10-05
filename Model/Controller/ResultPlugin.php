@@ -65,7 +65,14 @@ class ResultPlugin
         $startTag = '<script';
         $endTag = '</script>';
 
-        while (false !== ($start = stripos($html, $startTag))) {
+        $start = -1;
+        $i = 0;
+        while (false !== ($start = stripos($html, $startTag, $start + 1))) {
+            $i++;
+            if ($i > 1000 ) {
+                return $result;
+            }
+
             $end = stripos($html, $endTag, $start);
             if (false === $end) {
                 break;
