@@ -65,9 +65,9 @@ class ResultPlugin
         $startTag = '<script';
         $endTag = '</script>';
 
-        $start = -1;
+        $start = 0;
         $i = 0;
-        while (false !== ($start = stripos($html, $startTag, $start + 1))) {
+        while (false !== ($start = stripos($html, $startTag, $start))) {
             $i++;
             if ($i > 1000 ) {
                 return $result;
@@ -85,7 +85,11 @@ class ResultPlugin
                 continue;
             }
 
-            $html = str_replace($script, '', $html);
+            $pos = strpos($html, $script);
+            if ($pos !== false) {
+                $html = substr_replace($html, '', $pos, $len);
+            }
+
             $scripts[] = $script;
         }
 
