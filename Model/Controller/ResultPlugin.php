@@ -86,7 +86,11 @@ class ResultPlugin
                 continue;
             }
 
-            $html = str_replace($script, '', $html);
+            $pos = strpos($html, $script);
+            if ($pos !== false) {
+                $html = substr_replace($html, '', $pos, $len);
+            }
+
             $scripts[] = $script;
         }
 
