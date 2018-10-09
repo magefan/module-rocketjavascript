@@ -65,9 +65,9 @@ class ResultPlugin
         $startTag = '<script';
         $endTag = '</script>';
 
-        $start = -1;
+        $start = 0;
         $i = 0;
-        while (false !== ($start = stripos($html, $startTag, $start + 1))) {
+        while (false !== ($start = stripos($html, $startTag, $start))) {
             $i++;
             if ($i > 1000 ) {
                 return $result;
@@ -82,6 +82,7 @@ class ResultPlugin
             $script = substr($html, $start, $len);
 
             if (false !== stripos($script, self::EXCLUDE_FLAG_PATTERN)) {
+                $start++;
                 continue;
             }
 
