@@ -1,5 +1,8 @@
 # [Magefan](http://magefan.com/) Rocket JavaScript Extension for Magento 2
 
+[![Total Downloads](https://poser.pugx.org/magefan/module-rocketjavascript/downloads)](https://packagist.org/packages/magefan/module-rocketjavascript)
+[![Latest Stable Version](https://poser.pugx.org/magefan/module-rocketjavascript/v/stable)](https://packagist.org/packages/magefan/module-rocketjavascript)
+
 ## Features
   * Rocket JavaScript module allows you to move all javascript tags to the footer of the storefront page on your [Magento 2](http://magento.com/) Store.
   * Optimize JavaScript Bundle
