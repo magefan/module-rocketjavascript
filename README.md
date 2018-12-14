@@ -41,13 +41,17 @@ php bin/magento setup:static-content:deploy
 ## Get List Of Used JS
 ```
 /* Use in browser console */
-globalSrc = [];
+globalSrc = '';
 jQuery('script').each(function(){
 if (!jQuery(this).attr('src')) return;
-var src = (jQuery(this).attr('src').replace('PATH_TO_JS', ''));
-globalSrc.push(src)
+var src = jQuery(this).attr('src');
+if (src.indexOf('https://' + window.location.hostname) != -1 || src.indexOf('http://' + window.location.hostname) != -1) {
+var src = (src.replace(PATH_TO_JS, ''));
+globalSrc += "\n" + src;
+}
 })
-console.log(JSON.stringify(globalSrc));
+console.log(globalSrc);
+
 ```
 
 ## Support
