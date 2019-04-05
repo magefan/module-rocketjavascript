@@ -1,5 +1,9 @@
 # [Magefan](http://magefan.com/) Rocket JavaScript Extension for Magento 2
 
+# Magento2 Footer JavaScript
+# Magento2 Deferred JavaScript
+# Magento2 Optimized Bundle JavaScript
+
 [![Total Downloads](https://poser.pugx.org/magefan/module-rocketjavascript/downloads)](https://packagist.org/packages/magefan/module-rocketjavascript)
 [![Latest Stable Version](https://poser.pugx.org/magefan/module-rocketjavascript/v/stable)](https://packagist.org/packages/magefan/module-rocketjavascript)
 
