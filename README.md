@@ -38,9 +38,12 @@ php bin/magento setup:di:compile
 php bin/magento setup:static-content:deploy
 ```
 
-## Get List Of Used JS
+## Get List Of Used JS On A Sigle Page
 ```
 /* Use in browser console */
+/* Replace PATH_TO_JS with a string of static content URL including language. E.g.
+'https://domain.com/pub/static/version1549034518/frontend/Magento/luma/en_US/'
+*/
 globalSrc = '';
 jQuery('script').each(function(){
 if (!jQuery(this).attr('src')) return;
