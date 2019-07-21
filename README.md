@@ -12,31 +12,9 @@
 
 ## Requirements
   * Magento Community Edition 2.1.x-2.2.x or Magento Enterprise Edition 2.1.x-2.2.x
-
-## Installation Method 1 - Installing via composer
-  * Open command line
-  * Using command "cd" navigate to your magento2 root directory
-  * Run commands:
-```
-composer require magefan/module-rocketjavascript
-php bin/magento setup:upgrade
-php bin/magento setup:di:compile
-php bin/magento setup:static-content:deploy
-```
-
-## Installation Method 2 - Installing using archive
-  * Install the [Magefan Community Extension](https://github.com/magefan/module-community) first
-  * Download [ZIP Archive](https://magefan.com/rocket-javascript-deferred-javascript)
-  * Extract files
-  * In your Magento 2 root directory create folder app/code/Magefan/Blog
-  * Copy files and folders from archive to that folder
-  * In command line, using "cd", navigate to your Magento 2 root directory
-  * Run commands:
-```
-php bin/magento setup:upgrade
-php bin/magento setup:di:compile
-php bin/magento setup:static-content:deploy
-```
+  
+## Installation
+* [Install Rocket JavaScript Extension for Magento 2 via Composer or anarchive](https://magefan.com/blog/rocket-javascript-installation)
 
 ## Get List Of Used JS On A Sigle Page
 ```
