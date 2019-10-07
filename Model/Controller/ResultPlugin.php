@@ -69,7 +69,7 @@ class ResultPlugin
         $i = 0;
         while (false !== ($start = stripos($html, $startTag, $start))) {
             $i++;
-            if ($i > 1000 ) {
+            if ($i > 1000) {
                 return $result;
             }
 
@@ -91,7 +91,8 @@ class ResultPlugin
         }
 
         $scripts = implode(PHP_EOL, $scripts);
-        if ($end = stripos($html, '</body>')) {
+        $end = stripos($html, '</body>');
+        if ($end !== false) {
             $html = substr($html, 0, $end) . $scripts . substr($html, $end);
         } else {
             $html .= $scripts;
