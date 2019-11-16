@@ -19,15 +19,12 @@
 ## Get List Of Used JS On A Sigle Page
 ```
 /* Use in browser console */
-/* Replace PATH_TO_JS with a string of static content URL including language. E.g.
-'https://domain.com/pub/static/version1549034518/frontend/Magento/luma/en_US/'
-*/
 globalSrc = '';
 jQuery('script').each(function(){
 if (!jQuery(this).attr('src')) return;
 var src = jQuery(this).attr('src');
-if (src.indexOf('https://' + window.location.hostname) != -1 || src.indexOf('http://' + window.location.hostname) != -1) {
-var src = (src.replace(PATH_TO_JS, ''));
+if (src.indexOf(require.toUrl('')) != -1) {
+var src = (src.replace(require.toUrl(''), ''));
 globalSrc += "\n" + src;
 }
 })
