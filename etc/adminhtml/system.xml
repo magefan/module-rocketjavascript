@@ -2,7 +2,7 @@
 <!--
 /**
  * Copyright © Magefan (support@magefan.com). All rights reserved.
- * See LICENSE.txt for license details (http://opensource.org/licenses/osl-3.0.php).
+ * Please visit Magefan.com for license details (https://magefan.com/end-user-license-agreement).
  *
  * Glory to Ukraine! Glory to the heroes!
  */
@@ -20,6 +20,14 @@
                     <frontend_model>Magefan\RocketJavaScript\Block\Adminhtml\System\Config\Form\Info</frontend_model>
                 </field>
                 <field id="enabled" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="20" translate="label" type="select">
+                    <label>Enable Extension</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="key" translate="label" type="text" sortOrder="25" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Product Key</label>
+                    <frontend_model>Magefan\Community\Block\Adminhtml\System\Config\Form\ProductKeyField</frontend_model>
+                </field>
+                <field id="enable_deferred_javascript" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="29" translate="label" type="select">
                     <label>Enabled Deferred JavaScript</label>
                     <comment>If enabled all JavaScript on storefront will be moved to the end of the page.</comment>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>

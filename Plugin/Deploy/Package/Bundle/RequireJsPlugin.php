@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright © Magefan (support@magefan.com). All rights reserved.
- * See LICENSE.txt for license details (http://opensource.org/licenses/osl-3.0.php).
+ * Please visit Magefan.com for license details (https://magefan.com/end-user-license-agreement).
  *
  * Glory to Ukraine! Glory to the heroes!
  */
@@ -51,7 +51,8 @@ class RequireJsPlugin
     public function aroundAddFile(RequireJs $subject, callable $proceed, $filePath, $sourcePath, $contentType)
     {
 
-        $jsOptimization = $this->scopeConfig->getValue(self::BUNDLING_OPTIMIZATION_ENABLED, ScopeInterface::SCOPE_STORE);
+        $jsOptimization = $this->scopeConfig->getValue(self::BUNDLING_OPTIMIZATION_ENABLED, ScopeInterface::SCOPE_STORE)
+            && $this->scopeConfig->getValue('mfrocketjavascript/general/enabled', ScopeInterface::SCOPE_STORE);
         if ($jsOptimization) {
             $allowedFiles = $this->getAllowedFiles();
 
