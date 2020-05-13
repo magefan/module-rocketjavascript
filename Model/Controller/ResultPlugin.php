@@ -9,7 +9,6 @@
 namespace Magefan\RocketJavaScript\Model\Controller;
 
 use Magento\Framework\App\Response\Http as ResponseHttp;
-use Magento\Store\Model\ScopeInterface;
 
 /**
  * Plugin for processing relocation of javascript
