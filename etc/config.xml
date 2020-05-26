@@ -11,6 +11,9 @@
     <default>
         <mfrocketjavascript>
             <general>
+                <disallowed_pages_for_deferred_js>checkout/*
+onestepcheckout/*
+                </disallowed_pages_for_deferred_js>
                 <included_in_bundling>jquery/jquery.mobile.custom.min.js
 mage/dataPost.min.js
 mage/bootstrap.min.js

@@ -31,15 +31,32 @@ class ResultPlugin
     protected $scopeConfig;
 
     /**
+     * @var bool
+     */
+    protected $allowedOnPage;
+
+    /**
+     * @var \Magento\Store\Model\StoreManagerInterface
+     */
+    protected $storeManager;
+
+    /**
      * @param \Magento\Framework\App\RequestInterface            $request
      * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
+     * @param \Magento\Store\Model\StoreManagerInterface|null $storeManager
      */
     public function __construct(
         \Magento\Framework\App\RequestInterface $request,
-        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
+        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
+        \Magento\Store\Model\StoreManagerInterface $storeManager = null
     ) {
         $this->request = $request;
         $this->scopeConfig = $scopeConfig;
+
+        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+        $this->storeManager = $storeManager ?: $objectManager->get(
+            \Magento\Store\Model\StoreManagerInterface::class
+        );
     }
 
     /**
@@ -56,6 +73,10 @@ class ResultPlugin
     ) {
         $result = $proceed($response);
         if (PHP_SAPI === 'cli' || $this->request->isXmlHttpRequest() || !$this->isEnabled()) {
+            return $result;
+        }
+
+        if (!$this->isAllowedOnPage()) {
             return $result;
         }
 
@@ -133,5 +154,77 @@ class ResultPlugin
         }
 
         return $enabled;
+    }
+
+    /**
+     * @return bool
+     */
+    private function isAllowedOnPage()
+    {
+        if (null !== $this->allowedOnPage) {
+            return $this->allowedOnPage;
+        }
+        $this->allowedOnPage = false;
+
+        $spPages = $this->scopeConfig->getValue(
+            'mfrocketjavascript/general/disallowed_pages_for_deferred_js',
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+        );
+        $spPages = explode("\n", str_replace("\r", "\n", $spPages));
+
+        foreach ($spPages as $key => $path) {
+            $spPages[$key] = trim($spPages[$key]);
+            if (empty($spPages[$key])) {
+                unset($spPages[$key]);
+            }
+        }
+        $baseUrl = trim($this->storeManager->getStore()->getBaseUrl(), '/');
+        $baseUrl = str_replace('/index.php', '', $baseUrl);
+
+        $currentUrl = $this->storeManager->getStore()->getCurrentUrl();
+        $currentUrl = explode('?', $currentUrl);
+        $currentUrl = trim($currentUrl[0], '/');
+        foreach (['index.php', '.php', '.html'] as $end) {
+            $el = mb_strlen($end);
+            $cl = mb_strlen($currentUrl);
+            if (mb_strrpos($currentUrl, $end) == $cl - $el) {
+                $currentUrl = mb_substr($currentUrl, 0, $cl - $el);
+            }
+        }
+        $currentUrl = str_replace('/index.php', '', $currentUrl);
+        $currentUrl = trim($currentUrl, '/');
+        foreach ($spPages as $key => $path) {
+            $path = trim($path, '/');
+
+            if (mb_strlen($path)) {
+                if ('*' == $path{0}) {
+                    $subPath = trim($path, '*/');
+                    if (mb_strlen($currentUrl) - mb_strlen($subPath) === mb_strrpos($currentUrl, $subPath)) {
+                        $this->allowedOnPage = true;
+                        break;
+                    }
+                }
+
+                if ('*' == $path{mb_strlen($path) - 1}) {
+                    if (0 === mb_strpos($currentUrl, $baseUrl . '/' . trim($path, '*/'))) {
+                        $this->allowedOnPage = true;
+                        break;
+                    }
+                }
+                if ($currentUrl == $baseUrl . '/' . trim($path, '/')) {
+                    $this->allowedOnPage = true;
+                    break;
+                }
+            } else {
+                //homepage
+
+                if ($currentUrl == $baseUrl) {
+                    $this->allowedOnPage = true;
+                    break;
+                }
+            }
+        }
+
+        return $this->allowedOnPage = !$this->allowedOnPage;
     }
 }
