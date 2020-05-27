@@ -23,7 +23,7 @@ globalSrc = '';
 jQuery('script').each(function(){
 if (!jQuery(this).attr('src')) return;
 var src = jQuery(this).attr('src');
-if (src.indexOf(require.toUrl('')) != -1) {
+if (src.indexOf(require.toUrl('')) != -1 && src.indexOf('Magefan_LazyLoad') == -1) {
 var src = (src.replace(require.toUrl(''), ''));
 globalSrc += "\n" + src;
 }
