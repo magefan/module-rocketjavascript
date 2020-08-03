@@ -11,7 +11,7 @@
   * To enable or disable extension please navigate to Magento 2 Admin Panel > Stores > Magefan Extensions > Rocket JavaScript
 
 ## Requirements
-  * Magento Community Edition 2.1.x-2.3.x or Magento Enterprise Edition 2.1.x-2.3.x
+  * Magento Community Edition 2.1.x-2.4.0 or Magento Enterprise Edition 2.1.x-2.4.0
   
 ## Installation
 * [Install Rocket JavaScript Extension for Magento 2 via Composer or anarchive](https://magefan.com/blog/rocket-javascript-installation)
