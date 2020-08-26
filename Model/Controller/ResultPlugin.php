@@ -205,7 +205,7 @@ class ResultPlugin
                     }
                 }
 
-                if ('*' == $path{mb_strlen($path) - 1}) {
+                if ('*' == $path[mb_strlen($path) - 1]) {
                     if (0 === mb_strpos($currentUrl, $baseUrl . '/' . trim($path, '*/'))) {
                         $this->allowedOnPage = true;
                         break;
