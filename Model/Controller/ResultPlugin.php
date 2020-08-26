@@ -197,7 +197,7 @@ class ResultPlugin
             $path = trim($path, '/');
 
             if (mb_strlen($path)) {
-                if ('*' == $path{0}) {
+                if ('*' == $path[0]) {
                     $subPath = trim($path, '*/');
                     if (mb_strlen($currentUrl) - mb_strlen($subPath) === mb_strrpos($currentUrl, $subPath)) {
                         $this->allowedOnPage = true;
