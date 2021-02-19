@@ -6,6 +6,9 @@
 ## Magento2 Footer JavaScript
 ## Magento2 Deferred JavaScript
 ## Magento2 Optimized Bundle JavaScript
+
+
+<a href="https://magefan.com/rocket-javascript-deferred-javascript"><img width="300" height="60" src="https://cm.magefan.com/mf_webp/png/media/wysiwyg/DOWNLOAD_NOW.webp"></a>
   
 ## Configuration
   * To enable or disable extension please navigate to Magento 2 Admin Panel > Stores > Magefan Extensions > Rocket JavaScript
