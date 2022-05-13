@@ -1,4 +1,7 @@
 # [Magefan](https://magefan.com/) [Rocket JavaScript Extension for Magento 2](https://magefan.com/rocket-javascript-deferred-javascript)
+
+<a href="https://www.comebackalive.in.ua/donate"><img width="830" height="208" src="https://cm.magefan.com/blog/support-ukraine.png"></a>
+
 <img width="150" height="100" src="https://magefan.com/media/wysiwyg/made_in_ukraine.jpg">
 
 
