@@ -135,6 +135,7 @@ The code is licensed under [Open Software License ("OSL") v. 3.0](http://opensou
   * [Magento 2 SEO Extension](https://magefan.com/magento-2-seo-extension)
   * [Magento 2 Rich Snippets Extension](https://magefan.com/magento-2-rich-snippets)
   * [Magento 2 HTML Sitemap Extension](https://magefan.com/magento-2-html-sitemap-extension)
+  * [Magento 2 XML Sitemap Extension](https://magefan.com/magento-2-xml-sitemap-extension)
   * [Magento 2 SEO Suite Ultimate Extension](https://magefan.com/magento-2-seo-suite-ultimate-extension)
   * [Magento 2 Twitter Cards Extension](https://magefan.com/magento-2-twitter-cards-extension)
   * [Magento 2 Facebook Open Graph Extension](https://magefan.com/magento-2-open-graph-extension-og-tags)
