@@ -134,8 +134,15 @@ class ResultPlugin
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE
         );
 
-        /* check if Plumrocket AMP enabled */
+        
         if ($enabled) {
+
+            /* check if Amasty AMP enabled */
+            if ($this->request->getParam('is_amp')) {
+                return false;
+            }
+
+            /* check if Plumrocket AMP enabled */
             $isAmpRequest = $this->scopeConfig->getValue(
                 'pramp/general/enabled',
                 \Magento\Store\Model\ScopeInterface::SCOPE_STORE
