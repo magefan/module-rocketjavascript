@@ -170,3 +170,4 @@ The code is licensed under [Open Software License ("OSL") v. 3.0](http://opensou
    
   ### Shopify Apps
   * [Shopify Login As Customer](https://apps.shopify.com/login-as-customer)
+  * [Shopify Blog](https://apps.shopify.com/magefan-blog)
