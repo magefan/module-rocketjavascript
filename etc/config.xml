@@ -15,125 +15,126 @@
                 <mftype>1</mftype>
                 <enable_deferred_javascript>1</enable_deferred_javascript>
                 <disallowed_pages_for_deferred_js>checkout/*
-onestepcheckout/*
+                    onestepcheckout/*
                 </disallowed_pages_for_deferred_js>
+                <enable_deferred_javascript></enable_deferred_javascript>
                 <enable_js_bundling_optimization>1</enable_js_bundling_optimization>
                 <included_in_bundling>jquery.min.js
-mage/common.min.js
-mage/dataPost.min.js
-mage/bootstrap.min.js
-Magento_PageCache/js/form-key-provider.min.js
-Magento_Translation/js/mage-translation-dictionary.min.js
-Magento_Theme/js/theme.min.js
-requirejs/domReady.min.js
-jquery/jquery-migrate.min.js
-mage/template.min.js
-Magento_Ui/js/modal/confirm.min.js
-jquery/ui-modules/widget.min.js
-mage/apply/main.min.js
-Magento_Ui/js/lib/knockout/bootstrap.min.js
-mage/requirejs/text.min.js
-mage/smart-keyboard-handler.min.js
-mage/mage.min.js
-mage/ie-class-fixer.min.js
-underscore.min.js
-mage/translate.min.js
-Magento_Ui/js/modal/modal.min.js
-knockoutjs/knockout.min.js
-knockoutjs/knockout-es5.min.js
-Magento_Ui/js/lib/key-codes.min.js
-jquery/ui-modules/core.min.js
-jquery/z-index.min.js
-jquery/ui-modules/version.min.js
-mage/apply/scripts.min.js
-Magento_Ui/js/lib/knockout/template/engine.min.js
-Magento_Ui/js/lib/knockout/bindings/bootstrap.min.js
-Magento_Ui/js/lib/knockout/extender/observable_array.min.js
-Magento_Ui/js/lib/knockout/extender/bound-nodes.min.js
-jquery/ui-modules/data.min.js
-jquery/ui-modules/disable-selection.min.js
-jquery/ui-modules/focusable.min.js
-jquery/ui-modules/form.min.js
-jquery/ui-modules/ie.min.js
-jquery/ui-modules/keycode.min.js
-jquery/ui-modules/labels.min.js
-jquery/ui-modules/jquery-patch.min.js
-jquery/ui-modules/plugin.min.js
-jquery/ui-modules/safe-active-element.min.js
-jquery/ui-modules/safe-blur.min.js
-jquery/ui-modules/scroll-parent.min.js
-jquery/ui-modules/tabbable.min.js
-jquery/ui-modules/unique-id.min.js
-mage/utils/wrapper.min.js
-Magento_InventoryConfigurableProductFrontendUi/js/configurable-variation-qty.min.js
-knockoutjs/knockout-repeat.min.js
-knockoutjs/knockout-fast-foreach.min.js
-Magento_Ui/js/lib/core/events.min.js
-Magento_Catalog/js/price-utils.min.js
-jquery/jquery.parsequery.min.js
-mage/validation/validation.min.js
-Magento_Ui/js/lib/knockout/template/renderer.min.js
-Magento_Ui/js/lib/knockout/bindings/resizable.min.js
-Magento_Ui/js/lib/knockout/bindings/i18n.min.js
-Magento_Ui/js/lib/knockout/bindings/scope.min.js
-Magento_Ui/js/lib/knockout/bindings/range.min.js
-Magento_Ui/js/lib/knockout/bindings/mage-init.min.js
-Magento_Ui/js/lib/knockout/bindings/keyboard.min.js
-Magento_Ui/js/lib/knockout/bindings/optgroup.min.js
-Magento_Ui/js/lib/knockout/bindings/after-render.min.js
-Magento_Ui/js/lib/knockout/bindings/autoselect.min.js
-Magento_Ui/js/lib/knockout/bindings/datepicker.min.js
-Magento_Ui/js/lib/knockout/bindings/outer_click.min.js
-Magento_Ui/js/lib/knockout/bindings/fadeVisible.min.js
-Magento_Ui/js/lib/knockout/bindings/collapsible.min.js
-Magento_Ui/js/lib/knockout/bindings/staticChecked.min.js
-Magento_Ui/js/lib/knockout/bindings/simple-checked.min.js
-Magento_Ui/js/lib/knockout/bindings/bind-html.min.js
-Magento_Ui/js/lib/knockout/bindings/tooltip.min.js
-Magento_Ui/js/lib/knockout/bindings/color-picker.min.js
-Magento_Ui/js/lib/knockout/template/observable_source.min.js
-Magento_Ui/js/lib/logger/console-logger.min.js
-mage/url.min.js
-mage/validation.min.js
-Magento_Ui/js/lib/view/utils/async.min.js
-Magento_Ui/js/lib/registry/registry.min.js
-mage/utils/main.min.js
-Magento_Ui/js/lib/knockout/template/loader.min.js
-Magento_Ui/js/lib/core/class.min.js
-Magento_Ui/js/lib/core/storage/local.min.js
-jquery/spectrum/spectrum.min.js
-jquery/spectrum/tinycolor.min.js
-Magento_Ui/js/lib/logger/logger.min.js
-Magento_Ui/js/lib/logger/entry-factory.min.js
-Magento_Ui/js/lib/logger/console-output-handler.min.js
-Magento_Ui/js/lib/logger/formatter.min.js
-Magento_Ui/js/lib/logger/message-pool.min.js
-Magento_Ui/js/lib/logger/levels-pool.min.js
-Magento_Ui/js/lib/logger/logger-utils.min.js
-moment.min.js
-jquery/jquery.validate.min.js
-Magento_Ui/js/lib/logger/entry.min.js
-jquery/jquery.metadata.min.js
-mage/utils/template.min.js
-mage/utils/arrays.min.js
-mage/utils/compare.min.js
-mage/utils/misc.min.js
-mage/utils/objects.min.js
-mage/utils/strings.min.js
+                    mage/common.min.js
+                    mage/dataPost.min.js
+                    mage/bootstrap.min.js
+                    Magento_PageCache/js/form-key-provider.min.js
+                    Magento_Translation/js/mage-translation-dictionary.min.js
+                    Magento_Theme/js/theme.min.js
+                    requirejs/domReady.min.js
+                    jquery/jquery-migrate.min.js
+                    mage/template.min.js
+                    Magento_Ui/js/modal/confirm.min.js
+                    jquery/ui-modules/widget.min.js
+                    mage/apply/main.min.js
+                    Magento_Ui/js/lib/knockout/bootstrap.min.js
+                    mage/requirejs/text.min.js
+                    mage/smart-keyboard-handler.min.js
+                    mage/mage.min.js
+                    mage/ie-class-fixer.min.js
+                    underscore.min.js
+                    mage/translate.min.js
+                    Magento_Ui/js/modal/modal.min.js
+                    knockoutjs/knockout.min.js
+                    knockoutjs/knockout-es5.min.js
+                    Magento_Ui/js/lib/key-codes.min.js
+                    jquery/ui-modules/core.min.js
+                    jquery/z-index.min.js
+                    jquery/ui-modules/version.min.js
+                    mage/apply/scripts.min.js
+                    Magento_Ui/js/lib/knockout/template/engine.min.js
+                    Magento_Ui/js/lib/knockout/bindings/bootstrap.min.js
+                    Magento_Ui/js/lib/knockout/extender/observable_array.min.js
+                    Magento_Ui/js/lib/knockout/extender/bound-nodes.min.js
+                    jquery/ui-modules/data.min.js
+                    jquery/ui-modules/disable-selection.min.js
+                    jquery/ui-modules/focusable.min.js
+                    jquery/ui-modules/form.min.js
+                    jquery/ui-modules/ie.min.js
+                    jquery/ui-modules/keycode.min.js
+                    jquery/ui-modules/labels.min.js
+                    jquery/ui-modules/jquery-patch.min.js
+                    jquery/ui-modules/plugin.min.js
+                    jquery/ui-modules/safe-active-element.min.js
+                    jquery/ui-modules/safe-blur.min.js
+                    jquery/ui-modules/scroll-parent.min.js
+                    jquery/ui-modules/tabbable.min.js
+                    jquery/ui-modules/unique-id.min.js
+                    mage/utils/wrapper.min.js
+                    Magento_InventoryConfigurableProductFrontendUi/js/configurable-variation-qty.min.js
+                    knockoutjs/knockout-repeat.min.js
+                    knockoutjs/knockout-fast-foreach.min.js
+                    Magento_Ui/js/lib/core/events.min.js
+                    Magento_Catalog/js/price-utils.min.js
+                    jquery/jquery.parsequery.min.js
+                    mage/validation/validation.min.js
+                    Magento_Ui/js/lib/knockout/template/renderer.min.js
+                    Magento_Ui/js/lib/knockout/bindings/resizable.min.js
+                    Magento_Ui/js/lib/knockout/bindings/i18n.min.js
+                    Magento_Ui/js/lib/knockout/bindings/scope.min.js
+                    Magento_Ui/js/lib/knockout/bindings/range.min.js
+                    Magento_Ui/js/lib/knockout/bindings/mage-init.min.js
+                    Magento_Ui/js/lib/knockout/bindings/keyboard.min.js
+                    Magento_Ui/js/lib/knockout/bindings/optgroup.min.js
+                    Magento_Ui/js/lib/knockout/bindings/after-render.min.js
+                    Magento_Ui/js/lib/knockout/bindings/autoselect.min.js
+                    Magento_Ui/js/lib/knockout/bindings/datepicker.min.js
+                    Magento_Ui/js/lib/knockout/bindings/outer_click.min.js
+                    Magento_Ui/js/lib/knockout/bindings/fadeVisible.min.js
+                    Magento_Ui/js/lib/knockout/bindings/collapsible.min.js
+                    Magento_Ui/js/lib/knockout/bindings/staticChecked.min.js
+                    Magento_Ui/js/lib/knockout/bindings/simple-checked.min.js
+                    Magento_Ui/js/lib/knockout/bindings/bind-html.min.js
+                    Magento_Ui/js/lib/knockout/bindings/tooltip.min.js
+                    Magento_Ui/js/lib/knockout/bindings/color-picker.min.js
+                    Magento_Ui/js/lib/knockout/template/observable_source.min.js
+                    Magento_Ui/js/lib/logger/console-logger.min.js
+                    mage/url.min.js
+                    mage/validation.min.js
+                    Magento_Ui/js/lib/view/utils/async.min.js
+                    Magento_Ui/js/lib/registry/registry.min.js
+                    mage/utils/main.min.js
+                    Magento_Ui/js/lib/knockout/template/loader.min.js
+                    Magento_Ui/js/lib/core/class.min.js
+                    Magento_Ui/js/lib/core/storage/local.min.js
+                    jquery/spectrum/spectrum.min.js
+                    jquery/spectrum/tinycolor.min.js
+                    Magento_Ui/js/lib/logger/logger.min.js
+                    Magento_Ui/js/lib/logger/entry-factory.min.js
+                    Magento_Ui/js/lib/logger/console-output-handler.min.js
+                    Magento_Ui/js/lib/logger/formatter.min.js
+                    Magento_Ui/js/lib/logger/message-pool.min.js
+                    Magento_Ui/js/lib/logger/levels-pool.min.js
+                    Magento_Ui/js/lib/logger/logger-utils.min.js
+                    moment.min.js
+                    jquery/jquery.validate.min.js
+                    Magento_Ui/js/lib/logger/entry.min.js
+                    jquery/jquery.metadata.min.js
+                    mage/utils/template.min.js
+                    mage/utils/arrays.min.js
+                    mage/utils/compare.min.js
+                    mage/utils/misc.min.js
+                    mage/utils/objects.min.js
+                    mage/utils/strings.min.js
 
-Magento_Ui/templates/modal/modal-popup.html
-Magento_Ui/templates/modal/modal-slide.html
-Magento_Ui/templates/modal/modal-custom.html
-Magento_Ui/templates/tooltip/tooltip.html
-mage/gallery/gallery.html
-Magento_Ui/templates/block-loader.html
-Magento_InstantPurchase/template/confirmation.html
-Magento_Checkout/template/minicart/content.html
-Magento_InstantPurchase/template/instant-purchase.html
-Magento_Customer/template/authentication-popup.html
-Magento_Ui/templates/collection.html
-Magento_Ui/template/messages.html
-Magento_Captcha/template/checkout/captcha.html</included_in_bundling>
+                    Magento_Ui/templates/modal/modal-popup.html
+                    Magento_Ui/templates/modal/modal-slide.html
+                    Magento_Ui/templates/modal/modal-custom.html
+                    Magento_Ui/templates/tooltip/tooltip.html
+                    mage/gallery/gallery.html
+                    Magento_Ui/templates/block-loader.html
+                    Magento_InstantPurchase/template/confirmation.html
+                    Magento_Checkout/template/minicart/content.html
+                    Magento_InstantPurchase/template/instant-purchase.html
+                    Magento_Customer/template/authentication-popup.html
+                    Magento_Ui/templates/collection.html
+                    Magento_Ui/template/messages.html
+                    Magento_Captcha/template/checkout/captcha.html</included_in_bundling>
             </general>
         </mfrocketjavascript>
     </default>

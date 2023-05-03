@@ -107,6 +107,21 @@ class ResultPlugin
                 continue;
             }
 
+            $ignoreDeferredJavaScript = $this->scopeConfig->getValue(
+                'mfrocketjavascript/general/ignore_deferred_javascript_with',
+                \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+            $ignoreDeferredJavaScript = explode("\n", str_replace("\r", "\n", $ignoreDeferredJavaScript));
+
+            foreach ($ignoreDeferredJavaScript as $key => $value) {
+                $ignoreDeferredJavaScript[$key] = trim($value);
+                if (!empty($ignoreDeferredJavaScript[$key])) {
+                    if (false !== stripos($script, $ignoreDeferredJavaScript[$key])) {
+                        $start++;
+                        continue;
+                    }
+                }
+            }
+
             $html = str_replace($script, '', $html);
             $scripts[] = $script;
         }
@@ -127,14 +142,14 @@ class ResultPlugin
     private function isEnabled()
     {
         $enabled = $this->scopeConfig->getValue(
-            'mfrocketjavascript/general/enabled',
-            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
-        ) && $this->scopeConfig->getValue(
-            'mfrocketjavascript/general/enable_deferred_javascript',
-            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
-        );
+                'mfrocketjavascript/general/enabled',
+                \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+            ) && $this->scopeConfig->getValue(
+                'mfrocketjavascript/general/enable_deferred_javascript',
+                \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+            );
 
-        
+
         if ($enabled) {
 
             /* check if Amasty AMP enabled */
