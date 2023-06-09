@@ -80,6 +80,19 @@ class ResultPlugin
             return $result;
         }
 
+        $ignoredStrings = $this->scopeConfig->getValue(
+            'mfrocketjavascript/general/ignore_deferred_javascript_with',
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+        $ignoredStrings = explode("\n", str_replace("\r", "\n", $ignoredStrings));
+        foreach ($ignoredStrings as $key => $ignoredString) {
+            $ignoredString = trim($ignoredString);
+            if (!$ignoredString) {
+                unset($ignoredStrings[$key]);
+            } else {
+                $ignoredStrings[$key] = $ignoredString;
+            }
+        }
+
         $html = $response->getBody();
         $scripts = [];
 
@@ -105,6 +118,13 @@ class ResultPlugin
             if (false !== stripos($script, self::EXCLUDE_FLAG_PATTERN)) {
                 $start++;
                 continue;
+            }
+
+            foreach ($ignoredStrings as $ignoredString) {
+                if (false !== stripos($script, $ignoredString)) {
+                    $start++;
+                    continue 2;
+                }
             }
 
             $html = str_replace($script, '', $html);

@@ -39,6 +39,13 @@
                     </depends>
                     <comment>Enter page patches each in a new line. "*" means any path, you can use it at the beginning or end.</comment>
                 </field>
+                <field id="ignore_deferred_javascript_with" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="30" translate="label" type="textarea" canRestore="1">
+                    <label>Ignore Deferred JavaScript With</label>
+                    <depends>
+                        <field id="enable_deferred_javascript">1</field>
+                    </depends>
+                    <comment><![CDATA[Enter ignored strings, each in a new line. JavaScript that contains these strings will not be moved to the bottom of the page. Scripts that contain <strong>data-rocketjavascript="false"</strong> will automatically be ignored. Example &lt;script data-rocketjavascript="false"&gt;/* some script *&lt;/script&gt;]]></comment>
+                </field>
                 <field id="enable_js_bundling_optimization" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="30" translate="label" type="select" canRestore="1">
                     <label>Enable JavaScript Bundling Optimization</label>
                     <comment>Please note that this option only works with enabled JavaScript Bundling (Configuration > Advanced > Developer > JavaScript Settings > Enable JavaScript Bundling).</comment>

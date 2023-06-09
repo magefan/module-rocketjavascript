@@ -17,6 +17,7 @@
                 <disallowed_pages_for_deferred_js>checkout/*
 onestepcheckout/*
                 </disallowed_pages_for_deferred_js>
+                <ignore_deferred_javascript_with>www.googletagmanager.com</ignore_deferred_javascript_with>
                 <enable_js_bundling_optimization>1</enable_js_bundling_optimization>
                 <included_in_bundling>jquery.min.js
 mage/common.min.js
