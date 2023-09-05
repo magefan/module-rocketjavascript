@@ -14,7 +14,7 @@
 ## Magento2 Optimized Bundle JavaScript
 
 
-<a href="https://magefan.com/rocket-javascript-deferred-javascript"><img width="190" height="70" src="https://magefan.com/media/wysiwyg/download-now_1.png"></a>
+<a href="https://magefan.com/rocket-javascript-deferred-javascript"><img width="190" height="70" src="https://cm.magefan.com/wysiwyg/products/download-magefan-extensions.png"></a>
   
 ## Configuration
   * To enable or disable extension please navigate to Magento 2 Admin Panel > Stores > Magefan Extensions > Rocket JavaScript
