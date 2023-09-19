@@ -123,6 +123,7 @@ The code is licensed under [Open Software License ("OSL") v. 3.0](http://opensou
   * [Magento 2 CLI Extension](https://magefan.com/magento2-cli-extension)
   * [Magento 2 Facebook Pixel Extension](https://magefan.com/magento-2-facebook-pixel-extension)
   * [Magento 2 Price History](https://magefan.com/magento-2-price-history)
+  * [Magento 2 Google Customer Reviews](https://magefan.com/magento-2-google-customer-reviews)
 
 ### [Magento 2 Blog Extensions](https://magefan.com/magento-2-extensions/blog-extensions)
 
