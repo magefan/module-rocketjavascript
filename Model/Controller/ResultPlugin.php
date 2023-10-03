@@ -82,7 +82,7 @@ class ResultPlugin
 
         $ignoredStrings = $this->scopeConfig->getValue(
             'mfrocketjavascript/general/ignore_deferred_javascript_with',
-            \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE) ?: '';
         $ignoredStrings = explode("\n", str_replace("\r", "\n", $ignoredStrings));
         foreach ($ignoredStrings as $key => $ignoredString) {
             $ignoredString = trim($ignoredString);
