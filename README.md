@@ -125,7 +125,7 @@ The code is licensed under [Open Software License ("OSL") v. 3.0](http://opensou
   * [Magento 2 Price History](https://magefan.com/magento-2-price-history)
   * [Magento 2 Google Customer Reviews](https://magefan.com/magento-2-google-customer-reviews)
   * [Magento 2 Email Attachments](https://magefan.com/magento-2-email-attachments)
-    
+  * [Magento 2 Cron Schedule](https://magefan.com/magento-2-cron-schedule) 
 ### [Magento 2 Blog Extensions](https://magefan.com/magento-2-extensions/blog-extensions)
 
   * [Magento 2 Blog Extension](https://magefan.com/magento2-blog-extension)
