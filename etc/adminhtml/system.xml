@@ -27,34 +27,59 @@
                     <label>Product Key</label>
                     <frontend_model>Magefan\Community\Block\Adminhtml\System\Config\Form\ProductKeyField</frontend_model>
                 </field>
-                <field id="enable_deferred_javascript" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="29" translate="label" type="select" canRestore="1">
-                    <label>Enabled Deferred JavaScript</label>
+                <field id="merge_files" translate="label" type="select" sortOrder="26" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Merge JavaScript Files</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <backend_model>Magefan\RocketJavaScript\Model\Config\Backend\DevSettings</backend_model>
+                </field>
+                <field id="minify_files" translate="label comment" type="select" sortOrder="27" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Minify JavaScript Files</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <backend_model>Magefan\RocketJavaScript\Model\Config\Backend\DevSettings</backend_model>
+                    <comment>Minification is not applied in developer mode.</comment>
+                </field>
+            </group>
+            <group id="deferred_javascript" translate="label" type="text" sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Deferred JavaScript</label>
+                <field id="enabled" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="select" canRestore="1">
+                    <label>Enabled</label>
                     <comment>If enabled all JavaScript on storefront will be moved to the end of the page.</comment>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
-                <field id="disallowed_pages_for_deferred_js" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="30" translate="label" type="textarea" canRestore="1">
-                    <label>Disallowed Pages for Deferred JavaScript</label>
+                <field id="disallowed_pages_for_deferred_js" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="20" translate="label" type="textarea" canRestore="1">
+                    <label>Disallowed Pages</label>
                     <depends>
-                        <field id="enable_deferred_javascript">1</field>
+                        <field id="enabled">1</field>
                     </depends>
                     <comment>Enter page patches each in a new line. "*" means any path, you can use it at the beginning or end.</comment>
                 </field>
                 <field id="ignore_deferred_javascript_with" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="30" translate="label" type="textarea" canRestore="1">
-                    <label>Ignore Deferred JavaScript With</label>
+                    <label>Ignore JavaScript</label>
                     <depends>
-                        <field id="enable_deferred_javascript">1</field>
+                        <field id="enabled">1</field>
                     </depends>
                     <comment><![CDATA[Enter ignored strings, each in a new line. JavaScript that contains these strings will not be moved to the bottom of the page. Scripts that contain <strong>data-rocketjavascript="false"</strong> will automatically be ignored. Example &lt;script data-rocketjavascript="false"&gt;/* some script *&lt;/script&gt;]]></comment>
                 </field>
-                <field id="enable_js_bundling_optimization" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="30" translate="label" type="select" canRestore="1">
-                    <label>Enable JavaScript Bundling Optimization</label>
+            </group>
+            <group id="javascript_bundling" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>JavaScript Bundling</label>
+                <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <backend_model>Magefan\RocketJavaScript\Model\Config\Backend\DevSettings</backend_model>
+                </field>
+                <field id="enable_js_bundling_optimization" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="20" translate="label" type="select" canRestore="1">
+                    <label>Enable Bundling Optimization</label>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
                     <comment>Please note that this option only works with enabled JavaScript Bundling (Configuration > Advanced > Developer > JavaScript Settings > Enable JavaScript Bundling).</comment>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
-                <field id="included_in_bundling" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="40" translate="label" type="textarea" canRestore="1">
+                <field id="included_in_bundling" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="30" translate="label" type="textarea" canRestore="1">
                     <label>Included In Bundling</label>
                     <depends>
-                        <field id="enable_js_bundling_optimization">1</field>
+                        <field id="enabled">1</field>
                     </depends>
                     <comment>List of files that included in JS bundle.</comment>
                 </field>
