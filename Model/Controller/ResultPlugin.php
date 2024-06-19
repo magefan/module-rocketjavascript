@@ -81,7 +81,7 @@ class ResultPlugin
         }
 
         $ignoredStrings = $this->scopeConfig->getValue(
-            'mfrocketjavascript/general/ignore_deferred_javascript_with',
+            'mfrocketjavascript/deferred_javascript/ignore_deferred_javascript_with',
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE) ?: '';
         $ignoredStrings = explode("\n", str_replace("\r", "\n", $ignoredStrings));
         foreach ($ignoredStrings as $key => $ignoredString) {
@@ -150,11 +150,11 @@ class ResultPlugin
             'mfrocketjavascript/general/enabled',
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE
         ) && $this->scopeConfig->getValue(
-            'mfrocketjavascript/general/enable_deferred_javascript',
+            'mfrocketjavascript/deferred_javascript/enabled',
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE
         );
 
-        
+
         if ($enabled) {
 
             /* check if Amasty AMP enabled */
@@ -194,7 +194,7 @@ class ResultPlugin
         $this->allowedOnPage = false;
 
         $spPages = $this->scopeConfig->getValue(
-            'mfrocketjavascript/general/disallowed_pages_for_deferred_js',
+            'mfrocketjavascript/deferred_javascript/disallowed_pages_for_deferred_js',
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE
         );
         $spPages = explode("\n", str_replace("\r", "\n", $spPages));

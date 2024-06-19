@@ -13,11 +13,15 @@
             <general>
                 <mfmodule>RocketJavaScript</mfmodule>
                 <mftype>1</mftype>
-                <enable_deferred_javascript>1</enable_deferred_javascript>
+            </general>
+            <deferred_javascript>
+                <enabled>1</enabled>
                 <disallowed_pages_for_deferred_js>checkout/*
 onestepcheckout/*
                 </disallowed_pages_for_deferred_js>
                 <ignore_deferred_javascript_with>www.googletagmanager.com</ignore_deferred_javascript_with>
+            </deferred_javascript>
+            <javascript_bundling>
                 <enable_js_bundling_optimization>1</enable_js_bundling_optimization>
                 <included_in_bundling>jquery.min.js
 mage/common.min.js
@@ -135,7 +139,7 @@ Magento_Customer/template/authentication-popup.html
 Magento_Ui/templates/collection.html
 Magento_Ui/template/messages.html
 Magento_Captcha/template/checkout/captcha.html</included_in_bundling>
-            </general>
+            </javascript_bundling>
         </mfrocketjavascript>
     </default>
 </config>

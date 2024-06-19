@@ -11,4 +11,7 @@
     <type name="Magento\Framework\Controller\ResultInterface">
         <plugin name="result-rocketjavascript" type="Magefan\RocketJavaScript\Model\Controller\ResultPlugin" sortOrder="999999" />
     </type>
+    <type name="Magento\Theme\Controller\Result\JsFooterPlugin">
+        <plugin name="js-footer-plugin-rocketjavascript" type="Magefan\RocketJavaScript\Plugin\Frontend\Magento\Theme\Controller\Result\JsFooterPlugin" sortOrder="10" disabled="false"/>
+    </type>
 </config>
