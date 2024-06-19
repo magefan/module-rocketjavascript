@@ -18,12 +18,12 @@ class RequireJsPlugin
     /**
      * @var string
      */
-    const BUNDLING_OPTIMIZATION_ENABLED = 'mfrocketjavascript/general/enable_js_bundling_optimization';
+    const BUNDLING_OPTIMIZATION_ENABLED = 'mfrocketjavascript/javascript_bundling/enabled';
 
     /**
      * @var string
      */
-    const INCLUDE_IN_BUNDLING = 'mfrocketjavascript/general/included_in_bundling';
+    const INCLUDE_IN_BUNDLING = 'mfrocketjavascript/javascript_bundling/included_in_bundling';
 
     /**
      * @var \Magento\Framework\App\Config\ScopeConfigInterface
