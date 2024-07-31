@@ -9,26 +9,14 @@
 namespace Magefan\RocketJavaScript\Plugin\Deploy\Package\Bundle;
 
 use Magento\Deploy\Package\Bundle\RequireJs;
-use Magento\Framework\App\Config\ScopeConfigInterface;
-use Magento\Store\Model\ScopeInterface;
+use Magefan\RocketJavaScript\Model\Config;
 
 class RequireJsPlugin
 {
-
     /**
-     * @var string
+     * @var Config
      */
-    const BUNDLING_OPTIMIZATION_ENABLED = 'mfrocketjavascript/general/enable_js_bundling_optimization';
-
-    /**
-     * @var string
-     */
-    const INCLUDE_IN_BUNDLING = 'mfrocketjavascript/general/included_in_bundling';
-
-    /**
-     * @var \Magento\Framework\App\Config\ScopeConfigInterface
-     */
-    protected $scopeConfig;
+    protected $config;
 
     /**
      * mixed
@@ -36,13 +24,13 @@ class RequireJsPlugin
     protected $allowedFiles;
 
     /**
-     * Construct
-     *
-     * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
+     * RequireJsPlugin constructor.
+     * @param Config $config
      */
-    public function __construct(ScopeConfigInterface $scopeConfig)
-    {
-        $this->scopeConfig = $scopeConfig;
+    public function __construct(
+        Config $config
+    ) {
+        $this->config = $config;
     }
 
     /**
@@ -51,8 +39,7 @@ class RequireJsPlugin
     public function aroundAddFile(RequireJs $subject, callable $proceed, $filePath, $sourcePath, $contentType)
     {
 
-        $jsOptimization = $this->scopeConfig->getValue(self::BUNDLING_OPTIMIZATION_ENABLED, ScopeInterface::SCOPE_STORE)
-            && $this->scopeConfig->getValue('mfrocketjavascript/general/enabled', ScopeInterface::SCOPE_STORE);
+        $jsOptimization = $this->config->isBundlingEnabled() && $this->config->isEnabled();
         if ($jsOptimization) {
             $allowedFiles = $this->getAllowedFiles();
 
@@ -74,7 +61,7 @@ class RequireJsPlugin
     public function getAllowedFiles()
     {
         if (null === $this->allowedFiles) {
-            $includeInBundling = $this->scopeConfig->getValue(self::INCLUDE_IN_BUNDLING, ScopeInterface::SCOPE_STORE);
+            $includeInBundling = $this->config->getIncludedInBundling();
             $allowedFiles = str_replace("\r", "\n", $includeInBundling);
             $allowedFiles = explode("\n", $allowedFiles);
 
