@@ -146,6 +146,7 @@ The code is licensed under [Open Software License ("OSL") v. 3.0](http://opensou
 
 ### [Magento 2 Marketing Automation Extensions](https://magefan.com/magento-2-extensions/magento-marketing-automation)
 
+  * [Magento 2 Cookie Consent](https://magefan.com/magento-2-cookie-consent)
   * [Magento 2 Product Labels](https://magefan.com/magento-2-product-labels)
   * [Magento 2 Base Price](https://magefan.com/magento-2-base-price)
   * [Magento 2 Dynamic Categories](https://magefan.com/magento-2-dynamic-categories)
