@@ -14,12 +14,10 @@ use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\App\ResponseInterface;
 use Magento\Framework\View\Result\Layout;
 use Magento\Store\Model\ScopeInterface;
+use Magefan\RocketJavaScript\Model\Config;
 
 class JsFooterPlugin
 {
-
-    private const XML_PATH_RJ_DEFERRED_ENABLED = 'mfrocketjavascript/deferred_javascript/enabled';
-
     /**
      * @var ScopeConfigInterface
      */
@@ -48,12 +46,12 @@ class JsFooterPlugin
         Layout $result,
         ResponseInterface $httpResponse
     ) {
-        $jsRjOptimization = $this->scopeConfig->isSetFlag(self::XML_PATH_RJ_DEFERRED_ENABLED, ScopeInterface::SCOPE_STORE)
-            && $this->scopeConfig->isSetFlag('mfrocketjavascript/general/enabled', ScopeInterface::SCOPE_STORE);
-        if ($jsRjOptimization) {
-            return $result;
-        }
+        $jsRjOptimization =
+            $this->scopeConfig->isSetFlag(Config::XML_PATH_DEFERRED_ENABLED, ScopeInterface::SCOPE_STORE) &&
+            $this->scopeConfig->isSetFlag(Config::XML_PATH_EXTENSION_ENABLED, ScopeInterface::SCOPE_STORE);
 
-        return $proceed($argumentSubject, $result, $httpResponse);
+        return $jsRjOptimization
+            ? $result
+            : $proceed($argumentSubject, $result, $httpResponse);
     }
 }
