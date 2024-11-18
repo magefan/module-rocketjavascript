@@ -55,6 +55,7 @@ class RequireJsPlugin
                 return true;
             }
         }
+
         return $proceed($filePath, $sourcePath, $contentType);
     }
 
