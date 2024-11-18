@@ -69,7 +69,7 @@
                     <backend_model>Magefan\RocketJavaScript\Model\Config\Backend\DevSettings</backend_model>
                     <comment>Static content deployment is a requirement after option change</comment>
                 </field>
-                <field id="enable_js_bundling_optimization" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="20" translate="label" type="select" canRestore="1">
+                <field id="enable_js_bundling_optimization" showInDefault="1" showInStore="0" showInWebsite="0" sortOrder="20" translate="label" type="select" canRestore="1">
                     <label>Enable Bundling Optimization</label>
                     <depends>
                         <field id="enabled">1</field>
@@ -77,7 +77,7 @@
                     <comment>Static content deployment is a requirement after option change</comment>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
-                <field id="included_in_bundling" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="30" translate="label" type="textarea" canRestore="1">
+                <field id="included_in_bundling" showInDefault="1" showInStore="0" showInWebsite="0" sortOrder="30" translate="label" type="textarea" canRestore="1">
                     <label>Included In Bundling</label>
                     <depends>
                         <field id="enabled">1</field>

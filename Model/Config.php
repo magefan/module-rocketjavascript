@@ -115,24 +115,20 @@ class Config
 
     /**
      * Retrieve true if bundling optimization is enabled
-     *
-     * @param string|null $storeId
      * @return bool
      */
-    public function isBundlingOptimizationEnabled(string $storeId = null): bool
+    public function isBundlingOptimizationEnabled(): bool
     {
-        return (bool)$this->getConfig(self::XML_PATH_JAVASCRIPT_BUNDLING_OPTIMIZATION_ENABLED, $storeId);
+        return (bool)$this->getConfig(self::XML_PATH_JAVASCRIPT_BUNDLING_OPTIMIZATION_ENABLED);
     }
 
     /**
      * Retrieve included in bundling JS
-     *
-     * @param string|null $storeId
      * @return string
      */
-    public function getIncludedInBundling(string $storeId = null): string
+    public function getIncludedInBundling(): string
     {
-        return (string)$this->getConfig(self::XML_PATH_JAVASCRIPT_BUNDLING_INCLUDED_IN_BUNDLING, $storeId);
+        return (string)$this->getConfig(self::XML_PATH_JAVASCRIPT_BUNDLING_INCLUDED_IN_BUNDLING);
     }
 
     /**
