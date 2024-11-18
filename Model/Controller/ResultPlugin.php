@@ -24,11 +24,9 @@ class ResultPlugin
     protected $request;
 
     /**
-     * Core store config
-     *
-     * @var \Magento\Framework\App\Config\ScopeConfigInterface
+     * @var \Magefan\RocketJavaScript\Model\Config
      */
-    protected $scopeConfig;
+    protected $config;
 
     /**
      * @var bool
@@ -41,17 +39,18 @@ class ResultPlugin
     protected $storeManager;
 
     /**
-     * @param \Magento\Framework\App\RequestInterface            $request
-     * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
+     * ResultPlugin constructor.
+     * @param \Magento\Framework\App\RequestInterface $request
+     * @param \Magefan\RocketJavaScript\Model\Config $config
      * @param \Magento\Store\Model\StoreManagerInterface|null $storeManager
      */
     public function __construct(
         \Magento\Framework\App\RequestInterface $request,
-        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
+        \Magefan\RocketJavaScript\Model\Config $config,
         \Magento\Store\Model\StoreManagerInterface $storeManager = null
     ) {
         $this->request = $request;
-        $this->scopeConfig = $scopeConfig;
+        $this->config = $config;
 
         $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
         $this->storeManager = $storeManager ?: $objectManager->get(
@@ -80,9 +79,7 @@ class ResultPlugin
             return $result;
         }
 
-        $ignoredStrings = $this->scopeConfig->getValue(
-            'mfrocketjavascript/general/ignore_deferred_javascript_with',
-            \Magento\Store\Model\ScopeInterface::SCOPE_STORE) ?: '';
+        $ignoredStrings = $this->config->getIgnoreJavaScript() ?: '';
         $ignoredStrings = explode("\n", str_replace("\r", "\n", $ignoredStrings));
         foreach ($ignoredStrings as $key => $ignoredString) {
             $ignoredString = trim($ignoredString);
@@ -146,15 +143,9 @@ class ResultPlugin
 
     private function isEnabled()
     {
-        $enabled = $this->scopeConfig->getValue(
-            'mfrocketjavascript/general/enabled',
-            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
-        ) && $this->scopeConfig->getValue(
-            'mfrocketjavascript/general/enable_deferred_javascript',
-            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
-        );
+        $enabled = $this->config->isEnabled() && $this->config->isDeferredEnabled();
 
-        
+
         if ($enabled) {
 
             /* check if Amasty AMP enabled */
@@ -163,10 +154,7 @@ class ResultPlugin
             }
 
             /* check if Plumrocket AMP enabled */
-            $isAmpRequest = $this->scopeConfig->getValue(
-                'pramp/general/enabled',
-                \Magento\Store\Model\ScopeInterface::SCOPE_STORE
-            );
+            $isAmpRequest = $this->config->isAmpRequest();
 
             if ($isAmpRequest) {
                 /* We know that using objectManager is not a not a good practice,
@@ -193,10 +181,7 @@ class ResultPlugin
         }
         $this->allowedOnPage = false;
 
-        $spPages = $this->scopeConfig->getValue(
-            'mfrocketjavascript/general/disallowed_pages_for_deferred_js',
-            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
-        );
+        $spPages = $this->config->getDisallowedPages();
         $spPages = explode("\n", str_replace("\r", "\n", $spPages));
 
         foreach ($spPages as $key => $path) {
