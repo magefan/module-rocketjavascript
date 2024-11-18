@@ -38,8 +38,8 @@ class RequireJsPlugin
      */
     public function aroundAddFile(RequireJs $subject, callable $proceed, $filePath, $sourcePath, $contentType)
     {
+        $jsOptimization = $this->config->isEnabled() && $this->config->isBundlingOptimizationEnabled();
 
-        $jsOptimization = $this->config->isBundlingEnabled() && $this->config->isEnabled();
         if ($jsOptimization) {
             $allowedFiles = $this->getAllowedFiles();
 
