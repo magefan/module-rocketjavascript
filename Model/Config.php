@@ -12,6 +12,7 @@ namespace Magefan\RocketJavaScript\Model;
 
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Store\Model\ScopeInterface;
+use Magento\Framework\View\Asset\Config as MagentoConfig;
 
 class Config
 {
@@ -69,28 +70,6 @@ class Config
     }
 
     /**
-     * Retrieve true if js files merged
-     *
-     * @param string|null $storeId
-     * @return bool
-     */
-    public function isMergeFiles(string $storeId = null): bool
-    {
-        return (bool)$this->getConfig(self::XML_PATH_MERGE_FILES, $storeId);
-    }
-
-    /**
-     * Retrieve true if js files minified
-     *
-     * @param string|null $storeId
-     * @return bool
-     */
-    public function isMinifyFiles(string $storeId = null): bool
-    {
-        return (bool)$this->getConfig(self::XML_PATH_MINIFY_FILES, $storeId);
-    }
-
-    /**
      * Retrieve true if deferred is enabled
      *
      * @param string|null $storeId
@@ -131,7 +110,7 @@ class Config
      */
     public function isBundlingEnabled(string $storeId = null): bool
     {
-        return (bool)$this->getConfig(self::XML_PATH_JAVASCRIPT_BUNDLING_ENABLED, $storeId);
+        return (bool)$this->getConfig(MagentoConfig::XML_PATH_JS_BUNDLING, $storeId);
     }
 
     /**

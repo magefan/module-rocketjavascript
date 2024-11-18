@@ -36,7 +36,7 @@
                     <label>Minify JavaScript Files</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <backend_model>Magefan\RocketJavaScript\Model\Config\Backend\DevSettings</backend_model>
-                    <comment>Minification is not applied in developer mode.</comment>
+                    <comment>Minification is not applied in developer mode. Static content deployment is a requirement after option change</comment>
                 </field>
             </group>
             <group id="deferred_javascript" translate="label" type="text" sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="1">
@@ -67,13 +67,14 @@
                     <label>Enabled</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <backend_model>Magefan\RocketJavaScript\Model\Config\Backend\DevSettings</backend_model>
+                    <comment>Static content deployment is a requirement after option change</comment>
                 </field>
                 <field id="enable_js_bundling_optimization" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="20" translate="label" type="select" canRestore="1">
                     <label>Enable Bundling Optimization</label>
                     <depends>
                         <field id="enabled">1</field>
                     </depends>
-                    <comment>Please note that this option only works with enabled JavaScript Bundling (Configuration > Advanced > Developer > JavaScript Settings > Enable JavaScript Bundling).</comment>
+                    <comment>Static content deployment is a requirement after option change</comment>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
                 <field id="included_in_bundling" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="30" translate="label" type="textarea" canRestore="1">
