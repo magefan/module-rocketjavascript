@@ -117,6 +117,11 @@ class ResultPlugin
                 continue;
             }
 
+            if (false !== stripos($script, 'application/ld+json')) {
+                $start++;
+                continue;
+            }
+
             foreach ($ignoredStrings as $ignoredString) {
                 if (false !== stripos($script, $ignoredString)) {
                     $start++;
