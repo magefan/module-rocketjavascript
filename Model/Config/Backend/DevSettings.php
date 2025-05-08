@@ -50,8 +50,8 @@ class DevSettings extends Value
         ScopeConfigInterface $config,
         TypeListInterface $cacheTypeList,
         RequestInterface $request,
-        AbstractResource $resource = null,
-        AbstractDb $resourceCollection = null,
+        ?AbstractResource $resource = null,
+        ?AbstractDb $resourceCollection = null,
         array $data = []
     ) {
         $this->request = $request;
