@@ -64,7 +64,7 @@ class Config
      * @param string|null $storeId
      * @return bool
      */
-    public function isEnabled(string $storeId = null): bool
+    public function isEnabled(?string $storeId = null): bool
     {
         return (bool)$this->getConfig(self::XML_PATH_EXTENSION_ENABLED, $storeId);
     }
@@ -75,7 +75,7 @@ class Config
      * @param string|null $storeId
      * @return bool
      */
-    public function isDeferredEnabled(string $storeId = null): bool
+    public function isDeferredEnabled(?string $storeId = null): bool
     {
         return (bool)$this->getConfig(self::XML_PATH_DEFERRED_ENABLED, $storeId);
     }
@@ -86,7 +86,7 @@ class Config
      * @param string|null $storeId
      * @return string
      */
-    public function getDisallowedPages(string $storeId = null): string
+    public function getDisallowedPages(?string $storeId = null): string
     {
         return (string)$this->getConfig(self::XML_PATH_DEFERRED_DISALLOWED_PAGES, $storeId);
     }
@@ -97,7 +97,7 @@ class Config
      * @param string|null $storeId
      * @return string
      */
-    public function getIgnoreJavaScript(string $storeId = null): string
+    public function getIgnoreJavaScript(?string $storeId = null): string
     {
         return (string)$this->getConfig(self::XML_PATH_DEFERRED_IGNORE_JAVASCRIPT, $storeId);
     }
@@ -108,7 +108,7 @@ class Config
      * @param string|null $storeId
      * @return bool
      */
-    public function isBundlingEnabled(string $storeId = null): bool
+    public function isBundlingEnabled(?string $storeId = null): bool
     {
         return (bool)$this->getConfig(MagentoConfig::XML_PATH_JS_BUNDLING, $storeId);
     }
@@ -137,7 +137,7 @@ class Config
      * @param string|null $storeId
      * @return bool
      */
-    public function isAmpRequest(string $storeId = null): bool
+    public function isAmpRequest(?string $storeId = null): bool
     {
         return (bool)$this->getConfig(self::XML_PATH_PLUMROCKET_AMP_ENABLED, $storeId);
     }
@@ -149,7 +149,7 @@ class Config
      * @param string|null $storeId
      * @return mixed
      */
-    public function getConfig(string $path, string $storeId = null)
+    public function getConfig(string $path, ?string $storeId = null)
     {
         return $this->scopeConfig->getValue($path, ScopeInterface::SCOPE_STORE, $storeId);
     }

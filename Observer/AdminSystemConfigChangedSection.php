@@ -135,7 +135,7 @@ class AdminSystemConfigChangedSection implements ObserverInterface
         StoreManagerInterface $storeManager,
         MagentoConfig $magentoConfig,
         ReinitableConfigInterface $appConfig,
-        SettingChecker $settingChecker = null
+        ?SettingChecker $settingChecker = null
     ) {
         $this->scopeConfig = $scopeConfig;
         $this->configLoader = $configLoader;

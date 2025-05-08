@@ -47,7 +47,7 @@ class ResultPlugin
     public function __construct(
         \Magento\Framework\App\RequestInterface $request,
         \Magefan\RocketJavaScript\Model\Config $config,
-        \Magento\Store\Model\StoreManagerInterface $storeManager = null
+        ?\Magento\Store\Model\StoreManagerInterface $storeManager = null
     ) {
         $this->request = $request;
         $this->config = $config;
