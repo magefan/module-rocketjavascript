@@ -133,7 +133,7 @@ class ResultPlugin
 
         // Second pass: reconstruct HTML and append scripts
         if (empty($positions)) {
-            return $response; // No scripts found to move
+            return $result; // No scripts found to move
         }
 
         $newHtml = '';
