@@ -79,69 +79,85 @@ class ResultPlugin
             return $result;
         }
 
+
         $ignoredStrings = $this->config->getIgnoreJavaScript() ?: '';
         $ignoredStrings = explode("\n", str_replace("\r", "\n", $ignoredStrings));
-        foreach ($ignoredStrings as $key => $ignoredString) {
-            $ignoredString = trim($ignoredString);
-            if (!$ignoredString) {
-                unset($ignoredStrings[$key]);
-            } else {
-                $ignoredStrings[$key] = $ignoredString;
-            }
-        }
+        $ignoredStrings = array_map('trim', $ignoredStrings);
+        $ignoredStrings = array_filter($ignoredStrings);
 
         $html = $response->getBody();
         $scripts = [];
+        $positions = [];
 
         $startTag = '<script';
         $endTag = '</script>';
 
+        $lastPos = 0;
         $start = 0;
-        $i = 0;
-        while (false !== ($start = stripos($html, $startTag, $start))) {
-            $i++;
-            if ($i > 1000) {
-                return $result;
-            }
 
+        // First pass: find all script tags and their positions
+        while (false !== ($start = stripos($html, $startTag, $start))) {
             $end = stripos($html, $endTag, $start);
             if (false === $end) {
                 break;
             }
 
-            $len = $end + strlen($endTag) - $start;
-            $script = substr($html, $start, $len);
+            $scriptEnd = $end + strlen($endTag);
+            $script = substr($html, $start, $scriptEnd - $start);
 
-            if (false !== stripos($script, self::EXCLUDE_FLAG_PATTERN)) {
-                $start++;
+            // Check for exclusion flags or ignored content
+            if (false !== stripos($script, self::EXCLUDE_FLAG_PATTERN) ||
+                false !== stripos($script, 'application/ld+json')) {
+                $start = $scriptEnd; // Move pointer past this script
                 continue;
             }
 
-            if (false !== stripos($script, 'application/ld+json')) {
-                $start++;
-                continue;
-            }
-
+            $isIgnored = false;
             foreach ($ignoredStrings as $ignoredString) {
                 if (false !== stripos($script, $ignoredString)) {
-                    $start++;
-                    continue 2;
+                    $isIgnored = true;
+                    break;
                 }
             }
 
-            $html = str_replace($script, '', $html);
+            if ($isIgnored) {
+                $start = $scriptEnd;
+                continue;
+            }
+
+            // Store the script and its position
             $scripts[] = $script;
+            $positions[] = ['start' => $start, 'end' => $scriptEnd];
+            $start = $scriptEnd; // Move pointer for the next search
         }
 
-        $scripts = implode(PHP_EOL, $scripts);
-        $end = stripos($html, '</body>');
-        if ($end !== false) {
-            $html = substr($html, 0, $end) . $scripts . substr($html, $end);
+        // Second pass: reconstruct HTML and append scripts
+        if (empty($positions)) {
+            return $result; // No scripts found to move
+        }
+
+        $newHtml = '';
+        $lastPos = 0;
+
+        foreach ($positions as $pos) {
+            // Append the HTML content before the current script tag
+            $newHtml .= substr($html, $lastPos, $pos['start'] - $lastPos);
+            $lastPos = $pos['end'];
+        }
+
+        // Append the remaining HTML after the last script tag
+        $newHtml .= substr($html, $lastPos);
+
+        // Append the scripts before the closing </body> tag or at the end
+        $allScripts = implode(PHP_EOL, $scripts);
+        $bodyEndPos = stripos($newHtml, '</body>');
+        if ($bodyEndPos !== false) {
+            $newHtml = substr_replace($newHtml, $allScripts, $bodyEndPos, 0);
         } else {
-            $html .= $scripts;
+            $newHtml .= $allScripts;
         }
 
-        $response->setBody($html);
+        $response->setBody($newHtml);
 
         return $result;
     }
