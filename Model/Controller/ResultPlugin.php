@@ -8,7 +8,10 @@
 
 namespace Magefan\RocketJavaScript\Model\Controller;
 
+use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\App\Response\Http as ResponseHttp;
+use Magento\Framework\Filesystem;
+use Magento\Framework\UrlInterface;
 
 /**
  * Plugin for processing relocation of javascript
@@ -39,22 +42,50 @@ class ResultPlugin
     protected $storeManager;
 
     /**
+     * @var Filesystem
+     */
+    private $filesystem;
+
+    /**
+     * @var \Magento\PageCache\Model\Config
+     */
+    private $pageCacheConfig;
+
+    /**
+     * @var \Magento\Framework\View\LayoutInterface
+     */
+    private $layout;
+
+    /**
      * ResultPlugin constructor.
      * @param \Magento\Framework\App\RequestInterface $request
      * @param \Magefan\RocketJavaScript\Model\Config $config
+     * @param Filesystem $filesystem
      * @param \Magento\Store\Model\StoreManagerInterface|null $storeManager
+     * @param \Magento\PageCache\Model\Config|null $pageCacheConfig
+     * @param \Magento\Framework\View\LayoutInterface|null $layout
      */
     public function __construct(
         \Magento\Framework\App\RequestInterface $request,
         \Magefan\RocketJavaScript\Model\Config $config,
-        ?\Magento\Store\Model\StoreManagerInterface $storeManager = null
+        Filesystem $filesystem,
+        ?\Magento\Store\Model\StoreManagerInterface $storeManager = null,
+        ?\Magento\PageCache\Model\Config $pageCacheConfig = null,
+        ?\Magento\Framework\View\LayoutInterface $layout = null
     ) {
         $this->request = $request;
         $this->config = $config;
+        $this->filesystem = $filesystem;
 
         $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
         $this->storeManager = $storeManager ?: $objectManager->get(
             \Magento\Store\Model\StoreManagerInterface::class
+        );
+        $this->pageCacheConfig = $pageCacheConfig ?: $objectManager->get(
+            \Magento\PageCache\Model\Config::class
+        );
+        $this->layout = $layout ?: $objectManager->get(
+            \Magento\Framework\View\LayoutInterface::class
         );
     }
 
@@ -88,12 +119,14 @@ class ResultPlugin
         $html = $response->getBody();
         $scripts = [];
         $positions = [];
+        $prioritScripts = [];
 
         $startTag = '<script';
         $endTag = '</script>';
 
         $lastPos = 0;
         $start = 0;
+        $moveToFile = $this->config->isMoveToFileEnabled() && $this->canWriteToFile();
 
         // First pass: find all script tags and their positions
         while (false !== ($start = stripos($html, $startTag, $start))) {
@@ -106,10 +139,17 @@ class ResultPlugin
             $script = substr($html, $start, $scriptEnd - $start);
 
             // Check for exclusion flags or ignored content
-            if (false !== stripos($script, self::EXCLUDE_FLAG_PATTERN) ||
-                false !== stripos($script, 'application/ld+json')) {
+            if (false !== stripos($script, 'application/ld+json')) {
                 $start = $scriptEnd; // Move pointer past this script
                 continue;
+            }
+
+            if (false !== stripos($script, self::EXCLUDE_FLAG_PATTERN)) {
+                if (!$moveToFile) {
+                    $start = $scriptEnd;
+                    continue;
+                }
+                $prioritScripts[] = $script;
             }
 
             $isIgnored = false;
@@ -148,6 +188,46 @@ class ResultPlugin
         // Append the remaining HTML after the last script tag
         $newHtml .= substr($html, $lastPos);
 
+        if ($moveToFile) {
+            $combinedJs = '';
+            $externalScriptTags = [];
+            $allScripts = array_merge($prioritScripts, $scripts);
+            foreach ($allScripts as $script) {
+                $openTagEnd = strpos($script, '>');
+                $openTag = false !== $openTagEnd ? substr($script, 0, $openTagEnd + 1) : $script;
+
+                if (false !== stripos($openTag, ' src=') ||
+                    false !== stripos($openTag, 'x-magento-init') ||
+                    false !== stripos($openTag, 'x-magento-template') ||
+                    false !== strpos($script, 'require.config(') ||
+                    false !== strpos($script, 'var require =')
+                ) {
+                    $externalScriptTags[] = $script;
+                    continue;
+                }
+
+                if (false === $openTagEnd) {
+                    continue;
+                }
+                $jsContent = trim(substr($script, $openTagEnd + 1, strrpos($script, '</script>') - $openTagEnd - 1));
+
+                if (!empty($jsContent)) {
+                    $combinedJs .= $jsContent . "\n";
+                }
+            }
+
+            if (!empty($combinedJs)) {
+                $key = sha1($combinedJs);
+                $relativePath = 'mfrocketjs/' . $key . '.js';
+                $staticDir = $this->filesystem->getDirectoryWrite(DirectoryList::STATIC_VIEW);
+                if (!$staticDir->isExist($relativePath)) {
+                    $staticDir->writeFile($relativePath, $combinedJs);
+                }
+                $staticUrl = $this->storeManager->getStore()->getBaseUrl(UrlInterface::URL_TYPE_STATIC);
+                $scripts = array_merge($externalScriptTags, ['<script src="' . $staticUrl . $relativePath . '" defer></script>']);
+            }
+        }
+
         // Append the scripts before the closing </body> tag or at the end
         $allScripts = implode(PHP_EOL, $scripts);
         $bodyEndPos = stripos($newHtml, '</body>');
@@ -160,6 +240,14 @@ class ResultPlugin
         $response->setBody($newHtml);
 
         return $result;
+    }
+
+    /**
+     * @return bool
+     */
+    private function canWriteToFile(): bool
+    {
+        return $this->pageCacheConfig->isEnabled() && $this->layout->isCacheable();
     }
 
     private function isEnabled()
