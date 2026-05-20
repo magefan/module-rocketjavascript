@@ -11,7 +11,6 @@ namespace Magefan\RocketJavaScript\Model\Controller;
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\App\Response\Http as ResponseHttp;
 use Magento\Framework\Filesystem;
-use Magento\Framework\UrlInterface;
 use Magento\Framework\View\LayoutInterface;
 use Magento\PageCache\Model\Config;
 
@@ -59,14 +58,9 @@ class ResultPlugin
     private $layout;
 
     /**
-     * @var \Magento\Framework\View\DesignInterface
+     * @var \Magento\Framework\View\Asset\Repository
      */
-    private $design;
-
-    /**
-     * @var \Magento\Framework\Locale\ResolverInterface
-     */
-    private $localeResolver;
+    private $assetRepository;
 
     /**
      * ResultPlugin constructor.
@@ -76,8 +70,7 @@ class ResultPlugin
      * @param Config $pageCacheConfig
      * @param LayoutInterface $layout
      * @param \Magento\Store\Model\StoreManagerInterface|null $storeManager
-     * @param \Magento\Framework\View\DesignInterface|null $design
-     * @param \Magento\Framework\Locale\ResolverInterface|null $localeResolver
+     * @param \Magento\Framework\View\Asset\Repository|null $assetRepository
      */
     public function __construct(
         \Magento\Framework\App\RequestInterface $request,
@@ -86,8 +79,7 @@ class ResultPlugin
         Config $pageCacheConfig,
         LayoutInterface $layout,
         ?\Magento\Store\Model\StoreManagerInterface $storeManager = null,
-        ?\Magento\Framework\View\DesignInterface $design = null,
-        ?\Magento\Framework\Locale\ResolverInterface $localeResolver = null
+        ?\Magento\Framework\View\Asset\Repository $assetRepository = null
     ) {
         $this->request = $request;
         $this->config = $config;
@@ -98,11 +90,8 @@ class ResultPlugin
         $this->storeManager = $storeManager ?: $objectManager->get(
             \Magento\Store\Model\StoreManagerInterface::class
         );
-        $this->design = $design ?: $objectManager->get(
-            \Magento\Framework\View\DesignInterface::class
-        );
-        $this->localeResolver = $localeResolver ?: $objectManager->get(
-            \Magento\Framework\Locale\ResolverInterface::class
+        $this->assetRepository = $assetRepository ?: $objectManager->get(
+            \Magento\Framework\View\Asset\Repository::class
         );
     }
 
@@ -144,6 +133,7 @@ class ResultPlugin
         $lastPos = 0;
         $start = 0;
         $moveToFile = $this->config->isMoveToFileEnabled() && $this->canWriteToFile();
+        $moveToFile = true;
 
         // First pass: find all script tags and their positions
         while (false !== ($start = stripos($html, $startTag, $start))) {
@@ -238,15 +228,13 @@ class ResultPlugin
 
             if (!empty($combinedJs)) {
                 $key = sha1($combinedJs);
-                $themePath = $this->design->getDesignTheme()->getThemePath() ?: 'Magento/blank';
-                $locale = $this->localeResolver->getLocale();
-                $relativePath = 'frontend/' . $themePath . '/' . $locale . '/mfrocketjs/' . $key . '.js';
+                $asset = $this->assetRepository->createAsset('mfrocketjs/' . $key . '.js');
+                $relativePath = $asset->getPath();
                 $staticDir = $this->filesystem->getDirectoryWrite(DirectoryList::STATIC_VIEW);
                 if (!$staticDir->isExist($relativePath)) {
                     $staticDir->writeFile($relativePath, $combinedJs);
                 }
-                $staticUrl = $this->storeManager->getStore()->getBaseUrl(UrlInterface::URL_TYPE_STATIC);
-                $scripts = array_merge($externalScriptTags, ['<script src="' . $staticUrl . $relativePath . '" defer></script>']);
+                $scripts = array_merge($externalScriptTags, ['<script src="' . $asset->getUrl() . '" defer></script>']);
             }
         }
 
