@@ -59,13 +59,25 @@ class ResultPlugin
     private $layout;
 
     /**
+     * @var \Magento\Framework\View\DesignInterface
+     */
+    private $design;
+
+    /**
+     * @var \Magento\Framework\Locale\ResolverInterface
+     */
+    private $localeResolver;
+
+    /**
      * ResultPlugin constructor.
      * @param \Magento\Framework\App\RequestInterface $request
      * @param \Magefan\RocketJavaScript\Model\Config $config
      * @param Filesystem $filesystem
+     * @param Config $pageCacheConfig
+     * @param LayoutInterface $layout
      * @param \Magento\Store\Model\StoreManagerInterface|null $storeManager
-     * @param Config|null $pageCacheConfig
-     * @param LayoutInterface|null $layout
+     * @param \Magento\Framework\View\DesignInterface|null $design
+     * @param \Magento\Framework\Locale\ResolverInterface|null $localeResolver
      */
     public function __construct(
         \Magento\Framework\App\RequestInterface $request,
@@ -74,6 +86,8 @@ class ResultPlugin
         Config $pageCacheConfig,
         LayoutInterface $layout,
         ?\Magento\Store\Model\StoreManagerInterface $storeManager = null,
+        ?\Magento\Framework\View\DesignInterface $design = null,
+        ?\Magento\Framework\Locale\ResolverInterface $localeResolver = null
     ) {
         $this->request = $request;
         $this->config = $config;
@@ -83,6 +97,12 @@ class ResultPlugin
         $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
         $this->storeManager = $storeManager ?: $objectManager->get(
             \Magento\Store\Model\StoreManagerInterface::class
+        );
+        $this->design = $design ?: $objectManager->get(
+            \Magento\Framework\View\DesignInterface::class
+        );
+        $this->localeResolver = $localeResolver ?: $objectManager->get(
+            \Magento\Framework\Locale\ResolverInterface::class
         );
     }
 
@@ -218,7 +238,9 @@ class ResultPlugin
 
             if (!empty($combinedJs)) {
                 $key = sha1($combinedJs);
-                $relativePath = 'mfrocketjs/' . $key . '.js';
+                $themePath = $this->design->getDesignTheme()->getThemePath() ?: 'Magento/blank';
+                $locale = $this->localeResolver->getLocale();
+                $relativePath = 'frontend/' . $themePath . '/' . $locale . '/mfrocketjs/' . $key . '.js';
                 $staticDir = $this->filesystem->getDirectoryWrite(DirectoryList::STATIC_VIEW);
                 if (!$staticDir->isExist($relativePath)) {
                     $staticDir->writeFile($relativePath, $combinedJs);
