@@ -12,6 +12,8 @@ use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\App\Response\Http as ResponseHttp;
 use Magento\Framework\Filesystem;
 use Magento\Framework\UrlInterface;
+use Magento\Framework\View\LayoutInterface;
+use Magento\PageCache\Model\Config;
 
 /**
  * Plugin for processing relocation of javascript
@@ -47,12 +49,12 @@ class ResultPlugin
     private $filesystem;
 
     /**
-     * @var \Magento\PageCache\Model\Config
+     * @var Config
      */
     private $pageCacheConfig;
 
     /**
-     * @var \Magento\Framework\View\LayoutInterface
+     * @var LayoutInterface
      */
     private $layout;
 
@@ -62,30 +64,25 @@ class ResultPlugin
      * @param \Magefan\RocketJavaScript\Model\Config $config
      * @param Filesystem $filesystem
      * @param \Magento\Store\Model\StoreManagerInterface|null $storeManager
-     * @param \Magento\PageCache\Model\Config|null $pageCacheConfig
-     * @param \Magento\Framework\View\LayoutInterface|null $layout
+     * @param Config|null $pageCacheConfig
+     * @param LayoutInterface|null $layout
      */
     public function __construct(
         \Magento\Framework\App\RequestInterface $request,
         \Magefan\RocketJavaScript\Model\Config $config,
         Filesystem $filesystem,
+        Config $pageCacheConfig,
+        LayoutInterface $layout,
         ?\Magento\Store\Model\StoreManagerInterface $storeManager = null,
-        ?\Magento\PageCache\Model\Config $pageCacheConfig = null,
-        ?\Magento\Framework\View\LayoutInterface $layout = null
     ) {
         $this->request = $request;
         $this->config = $config;
         $this->filesystem = $filesystem;
-
+        $this->pageCacheConfig = $pageCacheConfig;
+        $this->layout = $layout;
         $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
         $this->storeManager = $storeManager ?: $objectManager->get(
             \Magento\Store\Model\StoreManagerInterface::class
-        );
-        $this->pageCacheConfig = $pageCacheConfig ?: $objectManager->get(
-            \Magento\PageCache\Model\Config::class
-        );
-        $this->layout = $layout ?: $objectManager->get(
-            \Magento\Framework\View\LayoutInterface::class
         );
     }
 
@@ -212,6 +209,9 @@ class ResultPlugin
                 $jsContent = trim(substr($script, $openTagEnd + 1, strrpos($script, '</script>') - $openTagEnd - 1));
 
                 if (!empty($jsContent)) {
+                    if (!str_ends_with($jsContent, ';')) {
+                        $jsContent .= ';';
+                    }
                     $combinedJs .= $jsContent . "\n";
                 }
             }
