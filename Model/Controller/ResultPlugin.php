@@ -136,7 +136,7 @@ class ResultPlugin
         $html = $response->getBody();
         $scripts = [];
         $positions = [];
-        $prioritScripts = [];
+        $priorityScripts = [];
 
         $startTag = '<script';
         $endTag = '</script>';
@@ -166,7 +166,7 @@ class ResultPlugin
                     $start = $scriptEnd;
                     continue;
                 }
-                $prioritScripts[] = $script;
+                $priorityScripts[] = $script;
             }
 
             $isIgnored = false;
@@ -208,7 +208,7 @@ class ResultPlugin
         if ($moveToFile) {
             $combinedJs = '';
             $externalScriptTags = [];
-            $allScripts = array_merge($prioritScripts, $scripts);
+            $allScripts = array_merge($priorityScripts, $scripts);
             foreach ($allScripts as $script) {
                 $openTagEnd = strpos($script, '>');
                 $openTag = false !== $openTagEnd ? substr($script, 0, $openTagEnd + 1) : $script;
