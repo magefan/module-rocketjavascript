@@ -133,7 +133,6 @@ class ResultPlugin
         $lastPos = 0;
         $start = 0;
         $moveToFile = $this->config->isMoveToFileEnabled() && $this->canWriteToFile();
-        $moveToFile = true;
 
         // First pass: find all script tags and their positions
         while (false !== ($start = stripos($html, $startTag, $start))) {
