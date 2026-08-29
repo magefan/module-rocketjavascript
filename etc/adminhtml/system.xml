@@ -60,6 +60,14 @@
                     </depends>
                     <comment><![CDATA[Enter ignored strings, each in a new line. JavaScript that contains these strings will not be moved to the bottom of the page. Scripts that contain <strong>data-rocketjavascript="false"</strong> will automatically be ignored. Example &lt;script data-rocketjavascript="false"&gt;/* some script *&lt;/script&gt;]]></comment>
                 </field>
+                <field id="movebody_scripts_to_file" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="40" translate="label" type="select" canRestore="1">
+                    <label>Move Body Scripts to File</label>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                    <comment>Extract inline scripts from the HTML body and combine them into a separate JavaScript file. Helps reduce DOM size and improves page parsing performance.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
             </group>
             <group id="javascript_bundling" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>JavaScript Bundling</label>

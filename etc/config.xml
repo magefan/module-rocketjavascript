@@ -20,6 +20,7 @@
 onestepcheckout/*
                 </disallowed_pages_for_deferred_js>
                 <ignore_deferred_javascript_with>www.googletagmanager.com</ignore_deferred_javascript_with>
+                <movebody_scripts_to_file>0</movebody_scripts_to_file>
             </deferred_javascript>
             <javascript_bundling>
                 <enable_js_bundling_optimization>1</enable_js_bundling_optimization>

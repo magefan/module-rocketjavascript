@@ -29,6 +29,7 @@ class Config
     public const XML_PATH_DEFERRED_ENABLED = 'mfrocketjavascript/deferred_javascript/enabled';
     public const XML_PATH_DEFERRED_DISALLOWED_PAGES = 'mfrocketjavascript/deferred_javascript/disallowed_pages_for_deferred_js';
     public const XML_PATH_DEFERRED_IGNORE_JAVASCRIPT = 'mfrocketjavascript/deferred_javascript/ignore_deferred_javascript_with';
+    public const XML_PATH_MOVE_SCRIPTS_TO_EXTERNAL_FILE = 'mfrocketjavascript/deferred_javascript/movebody_scripts_to_file';
 
     /**
      * JavaScript Bundling config
@@ -129,6 +130,17 @@ class Config
     public function getIncludedInBundling(): string
     {
         return (string)$this->getConfig(self::XML_PATH_JAVASCRIPT_BUNDLING_INCLUDED_IN_BUNDLING);
+    }
+
+    /**
+     * Retrieve true if move scripts to external file is enabled
+     *
+     * @param string|null $storeId
+     * @return bool
+     */
+    public function isMoveToFileEnabled(?string $storeId = null): bool
+    {
+        return (bool)$this->getConfig(self::XML_PATH_MOVE_SCRIPTS_TO_EXTERNAL_FILE, $storeId);
     }
 
     /**
